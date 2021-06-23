@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class TasklistModel extends ChangeNotifier {
-  SharedPreferences pref;
+  Box taskBox;
   List<String> taskList;
 
-  Future<void> initPrefAndList() async {
-    pref = await SharedPreferences.getInstance();
-    taskList = pref.getStringList('tasks') ?? [];
+  Future<void> initHive() async {
+    await Hive.initFlutter();
+    taskBox = await Hive.openBox('taskBox');
+    taskList = taskBox.get('tasklist') ?? [];
   }
 
   void addTask(String task) {
     taskList.add(task);
-    pref.setStringList('tasks', taskList);
+    taskBox.put('tasklist', taskList);
     notifyListeners();
   }
 
   void removeTask(int index) {
     taskList.removeAt(index);
-    pref.setStringList('tasks', taskList);
+    taskBox.put('tasklist', taskList);
     notifyListeners();
   }
 
   void cleanList() {
     taskList.clear();
-    pref.remove('tasks');
+    taskBox.put('tasklist', taskList);
     notifyListeners();
   }
 }

@@ -7,30 +7,44 @@ import 'package:rebith_tasklist/components/addtask_button.dart';
 import 'package:rebith_tasklist/logic/tasklist_model.dart';
 import 'package:rebith_tasklist/theme/theme_constants.dart';
 
-class TaskListScreen extends StatelessWidget {
+class TaskListScreen extends StatefulWidget {
+  @override
+  _TaskListState createState() => _TaskListState();
+}
+
+class _TaskListState extends State<TaskListScreen> {
+  Future initHive;
+
+  @override
+  void initState() {
+    super.initState();
+    initHive = context.read<TasklistModel>().initHive();
+  }
+
   @override
   Widget build(BuildContext context) {
     List<String> taskList;
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: mainColor,
         title: const Text(
-          'Карина, не забудь 🐣',
+          'Dont forget 🐣',
           style: const TextStyle(fontFamily: 'Pacifico', fontSize: 26.0),
         ),
         actions: [CleanTaskListButton()],
       ),
       floatingActionButton: AddTaskButton(),
       body: FutureBuilder<void>(
-        future: Provider.of<TasklistModel>(context, listen: false).initPrefAndList(),
+        future: initHive,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             taskList = Provider.of<TasklistModel>(context).taskList;
-            return  Container(
+            return Container(
               decoration: BoxDecoration(
                   image: const DecorationImage(
-                      image: const AssetImage('images/food3.jpg'), fit: BoxFit.cover)),
+                      image: const AssetImage('images/food3.jpg'),
+                      fit: BoxFit.cover)),
               child: ListView.builder(
                 itemCount: taskList.length,
                 itemBuilder: (context, index) {

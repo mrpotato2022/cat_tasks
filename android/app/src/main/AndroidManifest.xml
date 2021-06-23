@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.rebith_tasklist">
    <application
-        android:label="rebith_tasklist"
+        android:label="cat tasks"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

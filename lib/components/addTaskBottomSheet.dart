@@ -4,30 +4,26 @@ import 'package:rebith_tasklist/theme/theme_constants.dart';
 import 'package:provider/provider.dart';
 
 class AddTaskBottomSheet extends StatelessWidget {
-  TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    TextEditingController controller = TextEditingController();
     return Container(
-      color: Color(0xFF757575),
+      color: const Color(0xFF757575),
       child: Container(
-        padding: EdgeInsets.only(
-            top: 10.0,
-            left: 10.0,
-            right: 10.0,
-            bottom: MediaQuery.of(context).viewInsets.bottom
-        ),
+        height: 440,
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.0),
-                topRight: Radius.circular(20.0))),
+            borderRadius: const BorderRadius.only(
+                topLeft: const Radius.circular(20.0),
+                topRight: const Radius.circular(20.0))),
         child: Padding(
-          padding: EdgeInsets.only(
-              bottom: 10.0
-          ),
-          child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              padding: EdgeInsets.only(
+                  top: 10.0,
+                  left: 8.0,
+                  right: 8.0,
+                  ),
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Expanded(
                   child: TextField(
                     controller: controller,
@@ -35,7 +31,8 @@ class AddTaskBottomSheet extends StatelessWidget {
                     cursorColor: mainColor,
                     onSubmitted: (value) {
                       if (controller.text.isNotEmpty) {
-                        Provider.of<TasklistModel>(context, listen: false).addTask(value);
+                        Provider.of<TasklistModel>(context, listen: false)
+                            .addTask(value);
                         controller.clear();
                         Navigator.pop(context);
                       } else {
@@ -54,14 +51,16 @@ class AddTaskBottomSheet extends StatelessWidget {
                   ),
                   onPressed: () {
                     if (controller.text.isNotEmpty) {
-                      Provider.of<TasklistModel>(context, listen: false).addTask(controller.text);
+                      Provider.of<TasklistModel>(context, listen: false)
+                          .addTask(controller.text);
                       controller.clear();
                       Navigator.pop(context);
                     }
                   },
                 ),
               ]),
-        ),
+            ),
+
       ),
     );
   }

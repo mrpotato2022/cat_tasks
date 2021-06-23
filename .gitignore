@@ -8,6 +8,12 @@
 .buildlog/
 .history
 .svn/
+android/
+ios/
+fonts/
+images/
+test/
+
 
 # IntelliJ related
 *.iml
@@ -30,11 +36,8 @@
 .pub-cache/
 .pub/
 /build/
-.test/
-.android/
-.ios/
-.fonts/
-.images/
+
+
 
 # Web related
 lib/generated_plugin_registrant.dart

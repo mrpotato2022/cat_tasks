@@ -8,14 +8,12 @@ class TaskTile extends StatefulWidget {
   final int index;
 
   TaskTile({this.list, this.index});
-
   @override
   _TaskTileState createState() => _TaskTileState();
 }
 
 class _TaskTileState extends State<TaskTile> {
   bool check = false;
-
   Widget build(BuildContext context) {
     return Container(
       child: ListTile(
