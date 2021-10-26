@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:rebith_tasklist/logic/Task.dart';
 
 class TasklistModel extends ChangeNotifier {
-  Box taskBox;
-  List<String> taskList;
+  late Box taskBox;
+  List<Task> taskList = [];
 
   Future<void> initHive() async {
     await Hive.initFlutter();
     taskBox = await Hive.openBox('taskBox');
-    taskList = taskBox.get('tasklist') ?? [];
+    try {
+      taskList = List<Task>.from(taskBox.get('tasklist'));
+    } catch (e) {
+      taskList = [];
+    }
+    notifyListeners();
   }
 
-  void addTask(String task) {
-    taskList.add(task);
+  List<Task> getTaskList() {
+    return taskList;
+  }
+
+  void addTask(String title) {
+    Task newTask = Task(title: title);
+    taskList.add(newTask);
+    saveList();
+  }
+
+  void saveList() {
     taskBox.put('tasklist', taskList);
     notifyListeners();
   }
@@ -28,5 +43,10 @@ class TasklistModel extends ChangeNotifier {
     taskList.clear();
     taskBox.put('tasklist', taskList);
     notifyListeners();
+  }
+
+  void removeBox() {
+    Hive.box('taskBox').clear();
+    Hive.deleteFromDisk();
   }
 }

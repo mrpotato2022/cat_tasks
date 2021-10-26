@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rebith_tasklist/components/CleanDialog.dart';
+import 'package:rebith_tasklist/logic/notification_logic.dart';
 import 'package:rebith_tasklist/logic/tasklist_model.dart';
 
 class CleanTaskListButton extends StatelessWidget {
@@ -10,7 +12,11 @@ class CleanTaskListButton extends StatelessWidget {
         color: Colors.white,
         iconSize: 30.0,
         onPressed: () {
-          Provider.of<TasklistModel>(context, listen: false).cleanList();
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CleanDialog();
+              });
         });
   }
 }

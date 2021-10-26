@@ -18,20 +18,25 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   provider: ^5.0.0
   collection: ^1.15.0-nullsafety.5
-  hive: ^1.4.1+1
-  hive_flutter: ^0.3.0+2
-  path_provider: ^1.6.5
+  hive: ^2.0.4
+  hive_flutter: ^1.1.0
+  path_provider: ^2.0.2
+  flutter_local_notifications: ^6.0.0
+  intl: ^0.17.0
+  flutter_datetime_picker: ^1.5.1
+  permission_handler: ^8.1.4+1
+  app_settings: 4.1.1
 
 
 dependency_overrides:
-  collection: ^1.15.0-nullsafety.5
+
 
 
 
@@ -40,8 +45,8 @@ dependency_overrides:
   cupertino_icons: ^1.0.1
 
 dev_dependencies:
-  hive_generator: ^0.7.0+2
-  build_runner: ^1.8.0
+  build_runner: ^2.0.6
+  hive_generator: ^1.1.0
  # flutter_test:
   #  sdk: flutter
 

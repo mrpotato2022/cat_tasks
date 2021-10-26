@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:rebith_tasklist/components/clean_tasklist_button.dart';
 import 'package:rebith_tasklist/components/task_tile.dart';
 import 'package:rebith_tasklist/components/addtask_button.dart';
+import 'package:rebith_tasklist/logic/Task.dart';
+import 'package:rebith_tasklist/logic/notification_logic.dart';
 import 'package:rebith_tasklist/logic/tasklist_model.dart';
 import 'package:rebith_tasklist/theme/theme_constants.dart';
 
@@ -13,17 +15,18 @@ class TaskListScreen extends StatefulWidget {
 }
 
 class _TaskListState extends State<TaskListScreen> {
-  Future initHive;
+  Future? initHive;
+  List<Task> taskList = [];
 
   @override
   void initState() {
     super.initState();
     initHive = context.read<TasklistModel>().initHive();
+    context.read<NotificationLogic>().initNotificationPlugin();
   }
 
   @override
   Widget build(BuildContext context) {
-    List<String> taskList;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -39,7 +42,7 @@ class _TaskListState extends State<TaskListScreen> {
         future: initHive,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            taskList = Provider.of<TasklistModel>(context).taskList;
+            taskList = Provider.of<TasklistModel>(context).getTaskList();
             return Container(
               decoration: BoxDecoration(
                   image: const DecorationImage(
